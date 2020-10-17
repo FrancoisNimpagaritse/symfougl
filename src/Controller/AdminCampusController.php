@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CampusRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,10 +14,11 @@ class AdminCampusController extends AbstractController
      * 
      * @return Response
      */
-    public function index()
+    public function index(CampusRepository $repo)
     {
+        $camps = $repo->findAll();
         return $this->render('admin/campus/index.html.twig', [
-            'bodyTitle' => 'Gestion des campus',
+            'camps' => $camps,
         ]);
     }
 }
