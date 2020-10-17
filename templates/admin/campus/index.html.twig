@@ -1,7 +1,63 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block title %}Acceuil - Campus{% endblock %}
 
 {% block body %}
+    <!-- Begin Page Content -->
+      <div class="container-fluid">
+        <div class="text-center">
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Nos campus universitaires</h1>
+        </div>
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+              <div class="row">
+                <div class="col-md-5">   
+                  <h6 class="m-0 font-weight-bold text-primary">Liste complète</h6>
+                </div>
+                  
+                <div class="col-md-5"></div>
+                <div class="col">
+                    <a href="#" class="btn btn-sm btn-success">Ajouter un campus</a>
+                </div>
+              </div>    
+            </div>
 
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste complète</h6>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                    <th>Date d'ouversure</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                    <th>Date d'ouverture</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+                {% for camp in camps %}
+                  <tr>
+                    <td>{{camp.name}}</td>
+                    <td>{{camp.address}}</td>
+                    <td>{{camp.dateOpen | date('d/m/Y')}}</td>
+                  </tr>
+                {% endfor %}                    
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <!-- /.container-fluid -->
 {% endblock %}

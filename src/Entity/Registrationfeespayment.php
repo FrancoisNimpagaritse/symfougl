@@ -37,6 +37,18 @@ class Registrationfeespayment
      */
     private $libelle;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Registration::class, inversedBy="registrationfeespayments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $registration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="registrationfeespayments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +98,30 @@ class Registrationfeespayment
     public function setPaidAmount(int $paidAmount): self
     {
         $this->paidAmount = $paidAmount;
+
+        return $this;
+    }
+
+    public function getRegistration(): ?Registration
+    {
+        return $this->registration;
+    }
+
+    public function setRegistration(?Registration $registration): self
+    {
+        $this->registration = $registration;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -37,6 +37,24 @@ class Minervalpayment
      */
     private $libelle;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Coursesperiod::class, inversedBy="minervalpayments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $coursesperiod;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Registration::class, inversedBy="minervalpayments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $registration;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="minervalpayments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +104,42 @@ class Minervalpayment
     public function setLibelle(?string $libelle): self
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getCoursesperiod(): ?Coursesperiod
+    {
+        return $this->coursesperiod;
+    }
+
+    public function setCoursesperiod(?Coursesperiod $coursesperiod): self
+    {
+        $this->coursesperiod = $coursesperiod;
+
+        return $this;
+    }
+
+    public function getRegistration(): ?Registration
+    {
+        return $this->registration;
+    }
+
+    public function setRegistration(?Registration $registration): self
+    {
+        $this->registration = $registration;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

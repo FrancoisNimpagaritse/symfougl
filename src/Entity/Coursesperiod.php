@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CoursesperiodRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,22 @@ class Coursesperiod
      * @ORM\Column(type="string", length=50)
      */
     private $enumNiveau;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Academicyear::class, inversedBy="coursesperiods")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $academicyear;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Minervalpayment::class, mappedBy="coursesperiod", orphanRemoval=true)
+     */
+    private $minervalpayments;
+
+    public function __construct()
+    {
+        $this->minervalpayments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +121,49 @@ class Coursesperiod
     public function setEnumNiveau(string $enumNiveau): self
     {
         $this->enumNiveau = $enumNiveau;
+
+        return $this;
+    }
+
+    public function getAcademicyear(): ?Academicyear
+    {
+        return $this->academicyear;
+    }
+
+    public function setAcademicyear(?Academicyear $academicyear): self
+    {
+        $this->academicyear = $academicyear;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Minervalpayment[]
+     */
+    public function getMinervalpayments(): Collection
+    {
+        return $this->minervalpayments;
+    }
+
+    public function addMinervalpayment(Minervalpayment $minervalpayment): self
+    {
+        if (!$this->minervalpayments->contains($minervalpayment)) {
+            $this->minervalpayments[] = $minervalpayment;
+            $minervalpayment->setCoursesperiod($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMinervalpayment(Minervalpayment $minervalpayment): self
+    {
+        if ($this->minervalpayments->contains($minervalpayment)) {
+            $this->minervalpayments->removeElement($minervalpayment);
+            // set the owning side to null (unless already changed)
+            if ($minervalpayment->getCoursesperiod() === $this) {
+                $minervalpayment->setCoursesperiod(null);
+            }
+        }
 
         return $this;
     }
